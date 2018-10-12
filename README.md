@@ -1,2 +1,2 @@
 # GetRoute
-This is an Google navigation application which will suggest an alternative route path automatically if the user missed the actual route path to the destination
+A Google navigation application which suggests an alternative route path automatically if the user missed the actual route path to the destination
