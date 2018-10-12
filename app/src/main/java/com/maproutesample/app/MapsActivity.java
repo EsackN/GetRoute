@@ -344,7 +344,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pickup));
                     sourceMarker = mMap.addMarker(markerOptions);
                 } else {
-                    sourceMarker.remove();
                     sourceMarker.setPosition(place.getLatLng());
                 }
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
@@ -370,7 +369,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pickup));
                     destinationMarker = mMap.addMarker(markerOptions);
                 } else {
-                    destinationMarker.remove();
                     destinationMarker.setPosition(place.getLatLng());
                 }
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
