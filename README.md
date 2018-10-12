@@ -1,5 +1,5 @@
 # GetRoute
-A Google navigation app which suggests an alternative route path automatically, if the user missed the actual route path to the destination
+<b>A Google navigation app which suggests an alternative route path automatically, if the user missed the actual route path to the destination</b>
 
 Actual route path :<br>
 ![Actual map route](https://github.com/EsackN/GetRoute/blob/master/MapRoute_1.png)
