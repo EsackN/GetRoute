@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtSource"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/view_bg"
+                android:gravity="start|center"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.2"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimary"
+                android:text="Choose Pickup point" />
+
+            <TextView
+                android:id="@+id/txtDestination"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:lineSpacingMultiplier="1.2"
+                android:gravity="start|center"
+                android:maxLines="1"
+                android:layout_margin="10dp"
+                android:background="@drawable/view_bg"
+                android:textColor="@color/colorPrimary"
+                android:text="Choose Drop location" />
+        </LinearLayout>
+
+</fragment>
