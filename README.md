@@ -1,7 +1,9 @@
 # GetRoute
 A Google navigation application which suggests an alternative route path automatically if the user missed the actual route path to the destination
 
-![alt text](https://github.com/EsackN/GetRoute/edit/master/MapRoute_1.png)
+https://github.com/EsackN/GetRoute/blob/master/MapRoute_1.png
+
+![alt text](https://github.com/EsackN/GetRoute/blob/master/MapRoute_1.png)
 
 
 
