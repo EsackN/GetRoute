@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +17,8 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,6 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<LatLng> routes = new ArrayList<>();
     private boolean exceededTolerance = false;
     private LatLng currentLatLng;
+    Location prevLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         if (checkPermission()) {
             mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setRotateGesturesEnabled(false);
         } else {
             askPermission();
         }
@@ -240,12 +246,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     MarkerOptions markerOptions = new MarkerOptions();
                                     markerOptions.position(currentLatLng);
                                     markerOptions.title("My Location");
+                                    markerOptions.anchor(0.5f,0.5f);
                                     markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.car_marker));
                                     currentMarker = mMap.addMarker(markerOptions);
                                     mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
                                     mMap.moveCamera(CameraUpdateFactory.zoomTo(16));
                                 } else {
                                     currentMarker.setPosition(currentLatLng);
+                                    if (prevLoc != null) {
+                                        rotateMarker(currentMarker, prevLoc.bearingTo(location) , mMap);
+                                    }
+                                    prevLoc = location;
                                 }
                             }
                         }
@@ -427,5 +438,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRoutingCancelled() {
 
+    }
+
+    public void rotateMarker(final Marker marker, final float toRotation, GoogleMap map) {
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        final float startRotation = marker.getRotation();
+        final long duration = 1555;
+
+        final Interpolator interpolator = new LinearInterpolator();
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed / duration);
+
+                float rot = t * toRotation + (1 -t) * startRotation;
+
+                marker.setRotation(-rot > 180 ? rot/2 : rot);
+                if (t < 1.0) {
+                    // Post again 16ms later.
+                    handler.postDelayed(this, 16);
+                }
+            }
+        });
     }
 }
